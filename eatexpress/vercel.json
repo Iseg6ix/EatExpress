@@ -1,7 +1,8 @@
 {
+    "version": 2,
     "builds": [
         {
-            "src": "build_files.sh",
+            "src": "build.sh",
             "use": "@vercel/static-build",
             "config": {
                 "disDir": "staticfiles_build"
