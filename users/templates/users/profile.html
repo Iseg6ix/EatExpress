@@ -17,7 +17,7 @@
                         <img src="{{ user.profile.image.url }}" alt="User Profile" class="img-fluid">
                     </div>
                 </div>
-                <form class="form-signin" method="POST">
+                <form class="form-signin" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="form-group">
                         <h1 class="h3 mb-3 font-weight-normal">Profile Details</h1>
