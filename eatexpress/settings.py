@@ -89,8 +89,8 @@ DATABASES = {
 }
 
 database_url = os.environ.get("DATABASE_URL")
-# DATABASES["default"] = dj_database_url.parse(database_url)
-DATABASES["default"] = dj_database_url.parse("postgres://eatexpress_django_render_user:XK5G9zyWYhfHnlSk3kX9I7NksbPRSaTd@dpg-cn6igd21hbls73ca95gg-a.oregon-postgres.render.com/eatexpress_django_render")
+DATABASES["default"] = dj_database_url.parse(database_url)
+# DATABASES["default"] = dj_database_url.parse("postgres://eatexpress_django_render_user:XK5G9zyWYhfHnlSk3kX9I7NksbPRSaTd@dpg-cn6igd21hbls73ca95gg-a.oregon-postgres.render.com/eatexpress_django_render")
 
 
 # Password validation
