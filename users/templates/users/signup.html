@@ -1,7 +1,6 @@
 {% extends 'users/base.html' %}
 {% load static %}
 {% load widget_tweaks %}
-{% load crispy_forms_tags %}
 
 
 
@@ -20,7 +19,6 @@
             {% render_field form.phone_number placeholder="0810123456" class+="form-control" %}
             {% render_field form.password1 placeholder="Password" class+="form-control" %}
             {% render_field form.password2 placeholder="Enter Password again" class+="form-control" %}
-            <!-- {{ form|crispy }} -->
           </fieldset>
         </div>
         <button class="btn btn-lg btn-primary btn-block mt-2" type="submit">Create Account</button>
