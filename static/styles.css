@@ -246,7 +246,6 @@ section p {
 }
 
 .about-content h3 {
-    /* background: url(back.png); */
     background-size: cover;
     background-position: center;
     color: var(--clr4);
