@@ -10,4 +10,5 @@ urlpatterns = [
     path('menu/', views.menu, name='menu'),
     path('api/dishes/', views.get_dishes, name='get_dishes'),
     path('services/', views.services, name='services'),
+    path('cart/', user_views.cart, name='cart')
 ]

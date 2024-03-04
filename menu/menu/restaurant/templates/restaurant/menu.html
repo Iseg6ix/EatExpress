@@ -1,0 +1,45 @@
+{% extends "restaurant/base.html" %}
+{% block content %}
+<br><br><br>
+<div style="margin: 20px;">
+   <div class="card">
+  <div class="content">
+    <div class="back">
+      <div class="back-content">
+        
+        <strong>Hover Me</strong>
+      </div>
+    </div>
+    <div class="front">
+      
+      <div class="img">
+        <div class="circle">
+        </div>
+        <div class="circle" id="right">
+        </div>
+        <div class="circle" id="bottom">
+        </div>
+      </div>
+
+      <div class="front-content">
+        <small class="badge">Pasta</small>
+        <div class="description">
+          <div class="title">
+            <p class="title">
+              <strong>Spaguetti Bolognese</strong>
+            </p>
+            <form method="POST" action="">
+            {% csrf_token %}
+            <submit type="submit"><i class="fa fa-shopping-cart" style="color: lightblue;"></i></submit>
+          </form>
+          </div>
+          <p class="card-footer">
+            30 Mins &nbsp; | &nbsp; 1 Serving
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock content %}	

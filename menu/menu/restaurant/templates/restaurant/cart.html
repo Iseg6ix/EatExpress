@@ -1,0 +1,45 @@
+{% extends "restaurant/base.html" %}
+{% block content %}
+<br><br>
+<div class="middle" style="padding: 30px; width: 100%;">
+<!-- Tabs centers -->
+<div class="tab-content">
+ <div class="table-responsive" role="tabpanel" id="viewitem">
+   <table class="table">
+     <tbody>
+        <!--for loop-->
+       <tr>
+         <td><img src="" alt="food image"> </td>
+         <td>food name</td>
+         <td>cost</td>
+         <td>cuisines</td>
+         <td>vendor</td>
+         <td><form method="POST" action="">
+          <button type="submit" class="btn btn-danger">Delete</button></td>
+        </form>
+       </tr>
+       <!--end for loop-->
+       <form method="post" action="">
+       <td>
+         <h5 style="color:red;">Grand total</h5>
+       </td>
+       <td>
+       <h5><span style="text-decoration: line-through; text-decoration-style: double;">N</span> 32323</h5>
+       </td>
+       <td>
+       
+       </td>
+       <td></td>
+       
+       <td style="padding:30px; text-align:center;">
+       <a href="#"><button type="button" style=" color:white; font-weight:bold; text-transform:uppercase;" class="btn btn-warning">Proceed to checkout</button></a>
+       </td>
+      </form>
+     </tbody>
+   </table>
+ </div>
+   
+ </div>
+ </div>
+
+{% endblock content %}	

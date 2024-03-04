@@ -48,11 +48,11 @@ def profile(request):
     return render(request, 'users/profile.html', context)
 
 
-# def cart(request):
-#     context = {
-#         'title': 'Cart'
-#     }
-#     return render(request, 'users/cart.html', context)
+def cart(request):
+    context = {
+        'title': 'Cart'
+    }
+    return render(request, 'users/cart.html', context)
 
 
 # @csrf_exempt
