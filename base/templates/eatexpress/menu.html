@@ -22,9 +22,10 @@
         <ul class="listCard">
         </ul>
         <div class="checkOut">
-            <div class="total">0</div>
+            <div class="total" id="total">0</div>
             <div class="closeShopping">Close</div>
-            
+            <div>
+            <button class="checkOutButton" onclick="checkOut()" id="totalbutton">Check Out</button>
         </div>
     </div>
 
@@ -107,7 +108,9 @@
             })
             total.innerText = `₦${totalPrice.toLocaleString()}`;
             quantity.innerText = count;
+            return totalPrice;
         }
+        console.log(reloadCard())
         function changeQuantity(key, quantity){
             if(quantity == 0){
                 delete listCards[key];
@@ -118,52 +121,70 @@
             reloadCard();
         }
 
-
-        function sendOrderData() {
-            // Create an array to store data of items in the order
+    
+        function checkOut() {
+            var csrfToken = document.querySelector('.checkOut').dataset.csrfToken;
+            alert("Your order has been placed successfully");
             const orderItems = [];
-            // Loop through the cartDataKeys array to retrieve data keys
-            cartDataKeys.forEach(key => {
-                // Retrieve data for each item using the data key
-                const itemData = products[key];
 
-                // Add the retrieved data to the order items list
+            // Replace cartDataKeys and products with your actual data
+            listCards.forEach(itemData => {
                 orderItems.push({
                     item_name: itemData.name,
                     quantity: itemData.quantity,
                     price: itemData.price
                 });
             });
-            // Create object to send to server with order items
-            const data = {
+
+            const requestBody = {
                 order_items: orderItems
             };
+            console.log('Order Items:');
+            requestBody.order_items.forEach(item => {
+                console.log(item);
+            })
 
-            // Send the data to the server
-
-            fetch('/add_to_order/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': csrfToken,  // You may need to include the CSRF token
-                },
-                body: JSON.stringify(data),
+            fetch('/user_data/', {
+                header: {
+                    'content-Type': 'application/json'
+                }
             })
             .then(response => {
                 if (response.ok) {
-                    // Handle success (e.g., update the UI)
-                    console.log('Order added successfully');
+                    return response.json();  // Return the parsed JSON
                 } else {
-                    // Handle errors
                     console.error('Failed to add order');
+                    throw new Error('Failed to add order');
                 }
+            })
+            .then(data => {
+                const user_email = data.email
+                                return fetch("https://api.paystack.co/transaction/initialize", {
+                    headers:{
+                        Authorization: 'Bearer sk_test_debdcfe10f520c308ca65491eddedf169577ca69',
+                        'content-Type': 'application/json',
+                    },
+                    method: 'POST',
+                    body: JSON.stringify({
+                        'email': user_email,
+                        'amount': reloadCard()*100,
+                    })
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const authorizationUrl = data.data.authorization_url;
+                const newTab = window.open(authorizationUrl, '_blank');
+
+                // Check if the popup was blocked
+                if (!newTab || newTab.closed || typeof newTab.closed === 'undefined') {
+                    alert('Popup blocked. Please enable popups for this site.');
+                };
             })
             .catch(error => {
                 console.error('Error:', error);
+
             });
-
-        }
-
-
-    </script>
+        };
+   </script>
 </body>

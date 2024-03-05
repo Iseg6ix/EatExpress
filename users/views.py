@@ -48,11 +48,20 @@ def profile(request):
     return render(request, 'users/profile.html', context)
 
 
-def cart(request):
-    context = {
-        'title': 'Cart'
-    }
-    return render(request, 'users/cart.html', context)
+@login_required
+def user_data(request):
+    if request.method == "GET":
+        if request.user.profile:
+            profile = request.user.profile
+        else:
+            return HttpResponse('You must login first!')
+    return JsonResponse({
+        'first_name': profile.name,
+        'surname': profile.name,
+        'number': profile.phone_number,
+        'username': profile.user.username,
+        'email': profile.user.email
+    }, safe=False)
 
 
 # @csrf_exempt
