@@ -124,67 +124,143 @@
     
         function checkOut() {
             var csrfToken = document.querySelector('.checkOut').dataset.csrfToken;
-            alert("Your order has been placed successfully");
-            const orderItems = [];
+            const total_amount = reloadCard()
+            if (total_amount != 0) {
+                showAlertWithCountdown("Your order has been placed successfully", 10);
+                const orderItems = [];
 
-            // Replace cartDataKeys and products with your actual data
-            listCards.forEach(itemData => {
-                orderItems.push({
-                    item_name: itemData.name,
-                    quantity: itemData.quantity,
-                    price: itemData.price
+                // Replace cartDataKeys and products with your actual data
+                listCards.forEach(itemData => {
+                    orderItems.push({
+                        item_name: itemData.name,
+                        quantity: itemData.quantity,
+                        price: itemData.price
+                    });
                 });
-            });
 
-            const requestBody = {
-                order_items: orderItems
-            };
-            console.log('Order Items:');
-            requestBody.order_items.forEach(item => {
-                console.log(item);
-            })
+                const requestBody = {
+                    order_items: orderItems
+                };
+                console.log('Order Items:');
+                requestBody.order_items.forEach(item => {
+                    console.log(item);
+                })
+            
 
-            fetch('/user_data/', {
-                header: {
-                    'content-Type': 'application/json'
-                }
-            })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();  // Return the parsed JSON
-                } else {
-                    console.error('Failed to add order');
-                    throw new Error('Failed to add order');
-                }
-            })
-            .then(data => {
-                const user_email = data.email
-                                return fetch("https://api.paystack.co/transaction/initialize", {
-                    headers:{
-                        Authorization: 'Bearer sk_test_debdcfe10f520c308ca65491eddedf169577ca69',
-                        'content-Type': 'application/json',
-                    },
-                    method: 'POST',
-                    body: JSON.stringify({
-                        'email': user_email,
-                        'amount': reloadCard()*100,
+                // Dynamically create a loading spinner element
+                const loadingSpinner = document.createElement('div');
+                loadingSpinner.classList.add('spinner');
+                document.body.appendChild(loadingSpinner); // Append the spinner to the body
+
+                // Show the loading spinner
+                loadingSpinner.style.display = 'block';
+                fetch('/user_data/', {
+                    header: {
+                        'content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();  // Return the parsed JSON
+                    } else {
+                        console.error('Failed to add order');
+                        throw new Error('Failed to add order');
+                    }
+                })
+                .then(data => {
+                    const user_email = data.email
+                                    return fetch("https://api.paystack.co/transaction/initialize", {
+                        headers:{
+                            Authorization: 'Bearer sk_test_debdcfe10f520c308ca65491eddedf169577ca69',
+                            'content-Type': 'application/json',
+                        },
+                        method: 'POST',
+                        body: JSON.stringify({
+                            'email': user_email,
+                            'amount': total_amount*100,
+                        })
                     })
                 })
-            })
-            .then(response => response.json())
-            .then(data => {
-                const authorizationUrl = data.data.authorization_url;
-                const newTab = window.open(authorizationUrl, '_blank');
+                .then(response => response.json())
+                .then(data => {
+                    const authorizationUrl = data.data.authorization_url;
+                    // const newTab = window.open(authorizationUrl, '_blank');
+                    window.location.href = authorizationUrl
 
-                // Check if the popup was blocked
-                if (!newTab || newTab.closed || typeof newTab.closed === 'undefined') {
-                    alert('Popup blocked. Please enable popups for this site.');
-                };
-            })
-            .catch(error => {
-                console.error('Error:', error);
+                    // Check if the popup was blocked
+                    if (!newTab || newTab.closed || typeof newTab.closed === 'undefined') {
+                        alert('Popup blocked. Please enable popups for this site.');
+                    };
+                })
+                // .catch(error => {
+                //     console.error('Error:', error);
 
-            });
-        };
+                // });
+                .finally(() => {
+                    // Hide and remove the loading spinner once fetch requests are completed
+                    loadingSpinner.style.display = 'none';
+                    document.body.removeChild(loadingSpinner);
+                });
+            } else { showAlertWithCountdown("You haven't placed an order yet", 2)
+
+            }
+        }
+            
+
+        function showAlertWithCountdown(message, countdownInSeconds) {
+            // Create a modal element
+            const modal = document.createElement('div');
+            modal.style.position = 'fixed';
+            modal.style.top = '50%';
+            modal.style.left = '50%';
+            modal.style.transform = 'translate(-50%, -50%)';
+            modal.style.padding = '20px';
+            modal.style.backgroundColor = '#fff';
+            modal.style.border = '1px solid #ccc';
+            modal.style.borderRadius = '5px';
+            modal.style.zIndex = '9999';
+
+            // Add the message to the modal
+            const messageElement = document.createElement('p');
+            messageElement.textContent = message;
+            modal.appendChild(messageElement);
+
+            // Add countdown timer to the modal
+            const countdownElement = document.createElement('p');
+            modal.appendChild(countdownElement);
+
+            // Append the modal to the body
+            document.body.appendChild(modal);
+
+            // Function to update countdown
+            function updateCountdown() {
+                countdownElement.textContent = `You will be redirected to the payment page in ${countdownInSeconds} seconds.`;
+                countdownInSeconds--;
+
+                // Close the modal after countdown
+                if (countdownInSeconds < 0) {
+                    closeModal();
+                }
+            }
+
+            // Initial countdown update
+            updateCountdown();
+
+            // Update countdown every second
+            const countdownInterval = setInterval(updateCountdown, 1000);
+
+            // Function to close the modal
+            function closeModal() {
+                clearInterval(countdownInterval);
+                document.body.removeChild(modal);
+            }
+
+            // Set a timer to close the modal after the specified countdown
+            setTimeout(closeModal, countdownInSeconds * 1000);
+        }
+
+        // Example usage with a countdown of 5 seconds
+        // showAlertWithCountdown("Your order has been placed successfully", 5);
+       
    </script>
 </body>

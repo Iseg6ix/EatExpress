@@ -48,7 +48,7 @@ def profile(request):
     return render(request, 'users/profile.html', context)
 
 
-@login_required
+@login_required(login_url='/login/')
 def user_data(request):
     if request.method == "GET":
         if request.user.profile:

@@ -96,6 +96,7 @@ header .shopping span{
     background-color: #453E3B;
     height: 100vh;
     transition: 0.5s;
+    overflow-y: auto;
 }
 .active .card{
     left: calc(100% - 500px);
