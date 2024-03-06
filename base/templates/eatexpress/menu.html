@@ -126,7 +126,7 @@
             var csrfToken = document.querySelector('.checkOut').dataset.csrfToken;
             const total_amount = reloadCard()
             if (total_amount != 0) {
-                showAlertWithCountdown("Your order has been placed successfully", 10);
+                showAlertWithCountdown("Your order has been placed successfully ✅", "You will be redirected to the payment page in: ", 10);
                 const orderItems = [];
 
                 // Replace cartDataKeys and products with your actual data
@@ -201,13 +201,13 @@
                     loadingSpinner.style.display = 'none';
                     document.body.removeChild(loadingSpinner);
                 });
-            } else { showAlertWithCountdown("You haven't placed an order yet", 2)
+            } else { showAlertWithCountdown("You haven't placed an order yet ❌", "This message will dissapear in: ", 4)
 
             }
         }
             
 
-        function showAlertWithCountdown(message, countdownInSeconds) {
+        function showAlertWithCountdown(message, count_down_message, countdownInSeconds) {
             // Create a modal element
             const modal = document.createElement('div');
             modal.style.position = 'fixed';
@@ -233,8 +233,8 @@
             document.body.appendChild(modal);
 
             // Function to update countdown
-            function updateCountdown() {
-                countdownElement.textContent = `You will be redirected to the payment page in ${countdownInSeconds} seconds.`;
+            function updateCountdown(custom_message) {
+                countdownElement.textContent = `${count_down_message} ${countdownInSeconds} seconds.`;
                 countdownInSeconds--;
 
                 // Close the modal after countdown
@@ -244,7 +244,7 @@
             }
 
             // Initial countdown update
-            updateCountdown();
+            updateCountdown(count_down_message);
 
             // Update countdown every second
             const countdownInterval = setInterval(updateCountdown, 1000);
