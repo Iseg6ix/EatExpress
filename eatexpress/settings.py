@@ -83,18 +83,20 @@ WSGI_APPLICATION = 'eatexpress.wsgi.application'
 
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django_cockroachdb',
+    #     'NAME': 'defaultdb',
+    #     'USER': 'freedom',
+    #     'PASSWORD': 'xb5jhQEUPvhAnH86PirXrA',
+    #     'HOST': 'eat-express-15521.7tt.aws-us-east-1.cockroachlabs.cloud',
+    #     'PORT': 26257,
+    #     'OPTIONS': {
+    #         'sslmode': 'verify-full',
+    #         'sslrootcert': "C:/Users/HP/AppData/Roaming/postgresql/root.crt"
+    #     }
     'default': {
-        'ENGINE': 'django_cockroachdb',
-        'NAME': 'defaultdb',
-        'USER': 'freedom',
-        'PASSWORD': 'xb5jhQEUPvhAnH86PirXrA',
-        'HOST': 'eat-express-15521.7tt.aws-us-east-1.cockroachlabs.cloud',
-        'PORT': 26257,
-        'OPTIONS': {
-            'sslmode': 'verify-full',
-            'sslrootcert': "C:/Users/HP/AppData/Roaming/postgresql/root.crt"
-        }
-        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
