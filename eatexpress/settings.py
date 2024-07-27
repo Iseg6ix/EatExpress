@@ -75,7 +75,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'eatexpress.wsgi.application'
+WSGI_APPLICATION = 'eatexpress.wsgi.app'
 
 
 # Database

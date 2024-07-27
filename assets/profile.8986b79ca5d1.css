@@ -1,0 +1,128 @@
+.profile-links {
+    background-color: #dd6d6d;
+    padding: 30px 20px;
+    text-align: center;
+    margin: 100px 70px 0 70px;
+    border-radius: 10px;
+}
+
+.profile-links img {
+    width: 150px;
+    height: 150px;
+    border-radius: 30%;
+    display: inline-block;
+    margin-bottom: 25px;
+}
+
+.profile-links li {
+    display: block;
+    margin: 10px 0;
+}
+
+.profile-links li a {
+    color: #fff;
+    text-decoration: none;
+    margin: 10px 0;
+    display: inline-block;
+}
+
+.mt-custum {
+    margin-top: 100px;
+}
+
+.mt-custum .details {
+    border-bottom: 1px solid #472b01;
+    padding: 20px;
+    font-weight: 500;
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+@media (max-width:1200px) {
+    .mt-custum {
+        margin-top: 50px;
+    }
+    .profile-links {
+        background-color: #030200;
+        padding: 30px 20px;
+        text-align: center;
+        margin: 50px 50px 0 50px;
+        border-radius: 10px;
+    }
+}
+
+@media (max-width:991px) {
+    .mt-custum {
+        margin-top: 20px;
+    }
+    .profile-links {
+        background-color: #472b01;
+        padding: 30px 20px;
+        text-align: center;
+        margin: 20px 0 0 0;
+        border-radius: 10px;
+    }
+}
+
+@media (max-width:600px) {
+    .profile-links li {
+        margin: 0;
+    }
+    .profile-links img {
+        margin-bottom: 10px;
+    }
+    .mt-custum .details {
+        padding: 10px;
+    }
+}
+
+/* 
+body {
+    background: rgb(99, 39, 120) !important
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #BA68C8 !important
+}
+
+.profile-button {
+    background: rgb(99, 39, 120); !important
+    box-shadow: none;
+    border: none
+}
+
+.profile-button:hover {
+    background: #682773 !important
+}
+
+.profile-button:focus {
+    background: #682773 !important;
+    box-shadow: none
+}
+
+.profile-button:active {
+    background: #682773 !important; 
+    box-shadow: none
+}
+
+.back:hover {
+    color: #682773 !important;
+    cursor: pointer
+}
+
+.labels {
+    font-size: 11px
+}
+
+.add-experience:hover {
+    background: #BA68C8 !important;
+    color: #fff !important;
+    cursor: pointer;
+    border: solid 1px #BA68C8 !important
+}
+/* :root {
+    --bs-primary: #682773; /* Set your desired color
+} */
