@@ -81,16 +81,27 @@ WSGI_APPLICATION = 'eatexpress.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django_cockroachdb',
+        'NAME': 'defaultdb',
+        'USER': 'freedom',
+        'PASSWORD': 'xb5jhQEUPvhAnH86PirXrA',
+        'HOST': 'eat-express-15521.7tt.aws-us-east-1.cockroachlabs.cloud',
+        'PORT': 26257,
+        'OPTIONS': {
+            'sslmode': 'verify-full',
+            'sslrootcert': "C:/Users/HP/AppData/Roaming/postgresql/root.crt"
+        }
+        # 'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
 # database_url = os.environ.get("DATABASE_URL")
 # DATABASES["default"] = dj_database_url.parse(database_url)
-# DATABASES["default"] = dj_database_url.parse("postgres://eatexpress_django_render_user:XK5G9zyWYhfHnlSk3kX9I7NksbPRSaTd@dpg-cn6igd21hbls73ca95gg-a.oregon-postgres.render.com/eatexpress_django_render")
+# DATABASE_URL = "postgresql://freedom:xb5jhQEUPvhAnH86PirXrA@eat-express-15521.7tt.aws-us-east-1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full"
+# DATABASES["default"] = dj_database_url.parse(DATABASE_URL)
 
 
 # Password validation
