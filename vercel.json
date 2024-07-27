@@ -1,12 +1,22 @@
 {
-  "builds": [{
-    "src": "eatexpress/wsgi.py",
-    "use": "@vercel/python",
-    "config": {"maxLambdaSize": "15mb", "runtime": "python3.9"}
-  }],
+  "builds": [
+    {
+      "src": "eatexpress/wsgi.py",
+      "use": "@vercel/python",
+      "config": {"maxLambdaSize": "15mb", "runtime": "python3.9"}
+    },
+    {
+      "src": "static/**",
+      "use": "@vercel/static"
+    }
+  ],
   "routes": [
     {
-      "src": ":/(.*)",
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/(.*)",
       "dest": "eatexpress/wsgi.py"
     }
   ]
